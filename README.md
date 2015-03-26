@@ -1,4 +1,4 @@
-# cheerio
+# sha256
 
 This is a version of [sha256](https://github.com/emn178/js-sha256) for Parse.com
 
