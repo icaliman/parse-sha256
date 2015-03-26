@@ -10,7 +10,6 @@
 ;(function(root, undefined) {
   'use strict';
 
-  var TYPED_ARRAY = typeof(Uint8Array) != 'undefined';
   var HEX_CHARS = '0123456789abcdef'.split('');
   var EXTRA = [-2147483648, 8388608, 32768, 128];
   var SHIFT = [24, 16, 8, 0];
@@ -24,11 +23,6 @@
     0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2];
 
   var blocks = [];
-
-  Array.prototype.__ARRAY__ = true;
-  if(TYPED_ARRAY) {
-    Uint8Array.prototype.__ARRAY__ = true;
-  }
 
   var sha224 = function(message) {
     return sha256(message, true);
@@ -65,7 +59,7 @@
         blocks[4] = blocks[5] = blocks[6] = blocks[7] =
           blocks[8] = blocks[9] = blocks[10] = blocks[11] =
             blocks[12] = blocks[13] = blocks[14] = blocks[15] = 0;
-      if(message.__ARRAY__) {
+      if(message !== '' + message) { // message is a byte Array
         for (i = start;index < length && i < 64; ++index) {
           blocks[i >> 2] |= message[index] << SHIFT[i++ & 3];
         }
